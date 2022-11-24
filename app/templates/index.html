@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- page d'accueil du site  -->
+<blockquote class="blockquote">
+    <h1 class="display-3 text-center"> <i class="tim-icons icon-world"></i> Bienvenue sur notre page Web regroupant les sites de l'UNESCO <i class="tim-icons icon-world"></i> </h1>
+
+    <!-- <a class='text-white' href="{{ url_for('quiz')}}">
+        <button id='bouton' class='btn btn-success' target="_blank"> Quizz <br> </button>
+    </a>  -->
+</blockquote>
+<fieldset>
+    <h4 class="text-center">Vous pouvez visiter chaque site en cliquant dessus sur la map, ou les visiter par continent. Vous pouvez aussi vous amuser sur notre <i class="tim-icons icon-controller"></i> Quiz!</h4>
+    <!-- <h4 class="text-center">Vous pouvez aussi visiter chaque continent et y découvrir les sites qui s'y trouvent, mais aussi passer un bon moment sur notre super Quiz!</h4> -->
+    <nav class="navbar navbar-expand-lg navbar-transparent">
+        
+        <div class="container">
+            <div class="col">
+                <a class='text-white btn btn-primary btn-round' href="{{ url_for('europe')}}" >             
+                    Europe
+                </a>
+            </div>
+            <div class="col">
+                <a class='text-white btn btn-primary btn-round' href="{{ url_for('amerique')}}" >
+                    Amérique
+                </a>
+            </div>
+            <div class="col">
+                <a class='text-white btn btn-primary btn-round' href="{{ url_for('afrique')}}" >
+                    Afrique
+                </a>
+            </div>
+            <div class="col">
+                <a class='text-white btn btn-primary btn-round' href="{{ url_for('asie')}}">
+                    Asie
+                </a>
+            </div>
+            <div class="col">
+                <a class='text-white btn btn-primary btn-round' href="{{ url_for('reste')}}">
+                    Océanie
+                </a>
+            </div>  
+            <div class="col">
+                <a class='text-white btn btn-warning btn-round' href="{{ url_for('quiz')}}">
+                    <i class="tim-icons icon-controller"></i>
+                    Quiz
+                </a>
+            </div>  
+        </div>
+        
+    </nav>
+
+</fieldset>
+
+
+<div id="map"></div>
+
+<div class="container" id="displayInfoSite"></div>
+
+
+{% endblock %}
+
+<!-- ne pas oublier d'utiliser cette syntaxe sinn ca marche pas -->
+{% block js %}
+
+<script>
+    {% for marker in markers %}
+        L.marker([{{ marker['lat'] }}, {{ marker['lon'] }}]).addTo(map)
+        .bindPopup("{{ marker['popup'] }}")
+        .openPopup();
+      {% endfor %}
+</script>
+
+
+<sciprt>
+    <script src="{{ url_for('static', filename='js/displaySite.js') }}"></script>
+</sciprt>
+
+
+{% endblock %}

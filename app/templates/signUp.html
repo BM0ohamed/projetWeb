@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/blk.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>signup</title>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-signin"  role="form">
+        <h2 class="form-signin-heading">Please Sign Up</h2>
+        <input type="username" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>       
+        <button class="btn btn-lg btn-primary btn-block" type="button">Register</button>
+		</form>   
+     </div>
+     
+     <script>
+         boutonR.onclick = function(){
+             let username = inputUsername.value;
+             let password = inputPassword.value;
+             let xhr = new XMLHttpRequest();
+             xhr.open("POST", "signup", true);
+             xhr.setRequestHeader("Content-Type", "application/json");
+             xhr.send(JSON.stringify({
+                 "username": username,
+                 "password": password
+             }));
+             xhr.onreadystatechange = function() {
+                 if (xhr.readyState == 4 && xhr.status == 200) {
+                     let json = JSON.parse(xhr.responseText);
+                     console.log(json);
+                 }
+             }
+         }
+     </script>  
+</body>

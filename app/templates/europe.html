@@ -1,0 +1,39 @@
+<!-- je récupére tout le html du fichier base.html  -->
+{% extends 'base.html' %} 
+
+<!-- je modifie les variables qui sont dans le fichier base.html  -->
+{% block title %} Europe {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col">
+        <a class='text-white btn btn-default' href="{{ url_for('accueil')}}" >
+            <i class="tim-icons icon-minimal-left"></i>
+            Page d'accueil
+        </a>
+        
+    </div>
+    <div class="raw mt-8 mb-8">
+        <select id="searchSite" class="fstdropdown-select">
+            {% for site_historique in sites_historiques %}
+            <option value="{{ site_historique }}">{{ site_historique }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="row mt-2">
+        <div id="map"></div>
+    </div>
+    
+    <div class="container" id="displayInfoSite"></div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fstdropdown.min.css') }}">
+{% endblock css %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/fstdropdown.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/displayInfoSite.js') }}"></script>
+{% endblock js %}

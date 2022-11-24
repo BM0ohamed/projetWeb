@@ -1,0 +1,48 @@
+<!-- je récupére tout le html du fichier base.html  -->
+{% extends 'base.html' %} 
+
+<!-- je modifie les variables qui sont dans le fichier base.html  -->
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col">
+<a class='text-white btn btn-default' href="{{ url_for('accueil')}}" >
+    <i class="tim-icons icon-minimal-left"></i>
+    Page d'accueil
+</a>
+</div>
+<div class="row mt-2">
+    <div id="map"></div>
+</div>
+
+<div class="container" id="contient_boutons">
+    <div class="row">
+        {% for site in sites %}
+            <button data-value-to-send="{{ site.nom }}" class ="btn btn-primary col-sm" onClick=disableAllButton()>{{site.nom}}</button>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    L.marker([ {{ coord['lat'] }} , {{ coord['lon'] }} ]).addTo(map)
+    .bindPopup("Le site mystère se trouve ici")
+    .openPopup();
+    map.flyTo([{{ coord['lat'] }} , {{ coord['lon'] }}], 5);
+</script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+
+<script>
+    function disableAllButton() {
+        var buttons = document.getElementsByClassName("btn-primary");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].disabled = true;
+        }
+    }
+</script>
+{% endblock js %}
