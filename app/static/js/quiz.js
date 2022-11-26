@@ -1,5 +1,3 @@
-//quand j'ai écrit cette fonction y'avait que moi et dieu qui comprenions, 
-//mtn y'a que dieu sah
 
 async function sendInfoServer(url,options) {
     let response = await fetch(url,options)
